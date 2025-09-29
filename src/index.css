@@ -1,0 +1,187 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Gruvbox Dark color palette */
+    --background: 32 28% 16%;          /* #282828 - Gruvbox dark background */
+    --foreground: 40 23% 93%;          /* #ebdbb2 - Gruvbox light foreground */
+
+    --card: 34 25% 20%;                /* #3c3836 - Gruvbox dark1 */
+    --card-foreground: 40 23% 93%;     /* #ebdbb2 - Gruvbox light foreground */
+
+    --popover: 34 25% 20%;             /* #3c3836 - Gruvbox dark1 */
+    --popover-foreground: 40 23% 93%;  /* #ebdbb2 - Gruvbox light foreground */
+
+    --primary: 62 83% 47%;             /* #d79921 - Gruvbox yellow */
+    --primary-foreground: 32 28% 16%;  /* #282828 - Gruvbox dark background */
+
+    --secondary: 17 75% 45%;           /* #d65d0e - Gruvbox orange */
+    --secondary-foreground: 40 23% 93%; /* #ebdbb2 - Gruvbox light foreground */
+
+    --muted: 36 20% 30%;               /* #504945 - Gruvbox dark2 */
+    --muted-foreground: 40 11% 74%;    /* #a89984 - Gruvbox gray */
+
+    --accent: 180 25% 45%;             /* #689d6a - Gruvbox aqua */
+    --accent-foreground: 40 23% 93%;   /* #ebdbb2 - Gruvbox light foreground */
+
+    --destructive: 0 73% 46%;          /* #cc241d - Gruvbox red */
+    --destructive-foreground: 40 23% 93%; /* #ebdbb2 - Gruvbox light foreground */
+
+    --border: 36 20% 30%;              /* #504945 - Gruvbox dark2 */
+    --input: 36 20% 30%;               /* #504945 - Gruvbox dark2 */
+    --ring: 62 83% 47%;                /* #d79921 - Gruvbox yellow */
+
+    --radius: 0.75rem;
+
+    /* Custom Gruvbox design tokens */
+    --gruvbox-red: 0 73% 46%;          /* #cc241d */
+    --gruvbox-green: 65 59% 36%;       /* #98971a */
+    --gruvbox-yellow: 62 83% 47%;      /* #d79921 */
+    --gruvbox-blue: 205 54% 39%;       /* #458588 */
+    --gruvbox-purple: 327 38% 61%;     /* #b16286 */
+    --gruvbox-aqua: 180 25% 45%;       /* #689d6a */
+    --gruvbox-orange: 17 75% 45%;      /* #d65d0e */
+
+    --gradient-primary: linear-gradient(135deg, hsl(62 83% 47%), hsl(17 75% 45%)); /* Yellow to Orange */
+    --gradient-subtle: linear-gradient(180deg, hsl(32 28% 16%), hsl(34 25% 20%)); /* Dark bg to dark1 */
+    --gradient-accent: linear-gradient(135deg, hsl(34 25% 20%), hsl(36 20% 30%)); /* Dark1 to dark2 */
+    
+    --shadow-elegant: 0 20px 25px -5px hsl(32 28% 16% / 0.6), 0 10px 10px -5px hsl(32 28% 16% / 0.1);
+    --shadow-glow: 0 0 40px hsl(62 83% 47% / 0.25);
+    
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-spring: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+    /* Typography scales */
+    --font-heading: "Inter", system-ui, sans-serif;
+    --font-body: "Inter", system-ui, sans-serif;
+    --font-mono: "JetBrains Mono", monospace;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-body);
+    line-height: 1.6;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    line-height: 1.2;
+  }
+}
+
+@layer components {
+  .gradient-primary {
+    background: var(--gradient-primary);
+  }
+  
+  .gradient-subtle {
+    background: var(--gradient-subtle);
+  }
+  
+  .gradient-accent {
+    background: var(--gradient-accent);
+  }
+  
+  .shadow-elegant {
+    box-shadow: var(--shadow-elegant);
+  }
+  
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
+  }
+  
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+  
+  .transition-spring {
+    transition: var(--transition-spring);
+  }
+
+  .timeline-line {
+    position: relative;
+  }
+  
+  .timeline-line::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--gradient-primary);
+  }
+
+  .timeline-dot {
+    position: relative;
+    width: 12px;
+    height: 12px;
+    background: hsl(var(--primary));
+    border-radius: 50%;
+    border: 3px solid hsl(var(--background));
+    box-shadow: 0 0 0 2px hsl(var(--primary));
+  }
+
+  .scroll-smooth {
+    scroll-behavior: smooth;
+  }
+
+  .hero-text {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
