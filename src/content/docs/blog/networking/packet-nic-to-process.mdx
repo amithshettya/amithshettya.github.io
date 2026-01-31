@@ -1,0 +1,49 @@
+---
+title: Packet from NIC to process
+description: Understanding how packets travel from Network Interface Card to user process
+publishDate: 2026-01-30
+---
+
+# Packet from NIC to Process
+
+Understanding the complete journey of a network packet from the Network Interface Card (NIC) to a user process is fundamental to comprehending Linux networking internals.
+
+## Overview
+
+When a network packet arrives at your system, it goes through multiple layers of processing before reaching the destination application. This journey involves hardware interrupts, kernel processing, and ultimately data delivery to user space.
+
+## The Journey
+
+### 1. Hardware Reception
+- Packet arrives at NIC
+- DMA transfers packet to kernel memory
+- NIC triggers hardware interrupt
+
+### 2. Kernel Processing
+- Interrupt handler processes the packet
+- Packet moves through network stack layers
+- Routing and filtering decisions
+
+### 3. Socket Delivery
+- Packet is matched to appropriate socket
+- Data is copied to socket buffer
+- Application can read the data
+
+## Key Components
+
+- **Network Interface Card (NIC)**: Hardware that receives/transmits network packets
+- **DMA (Direct Memory Access)**: Efficient memory transfer mechanism
+- **Interrupt Handlers**: Kernel code that responds to hardware events
+- **Network Stack**: Kernel networking implementation
+- **Sockets**: Interface between kernel and user space
+
+## Performance Considerations
+
+Understanding this flow is crucial for:
+- Network performance optimization
+- Debugging networking issues
+- Designing high-performance network applications
+
+---
+
+*This post covers the fundamental packet processing path in Linux networking.*

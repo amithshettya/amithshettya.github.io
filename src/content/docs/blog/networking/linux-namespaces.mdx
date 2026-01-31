@@ -1,0 +1,165 @@
+---
+title: Linux Namespaces
+description: Understanding Linux network namespaces for containerization and isolation
+publishDate: 2026-01-30
+---
+
+# Linux Namespaces
+
+Linux namespaces provide process isolation mechanisms that are fundamental to containerization and virtualization, especially for network resources.
+
+## What are Network Namespaces?
+
+Network namespaces provide isolated network environments where processes have their own private network stack, including interfaces, routing tables, and firewall rules.
+
+## Namespace Types
+
+### 1. Network Namespace (net)
+- **Isolated network stack**: Separate network interfaces and routing
+- **Private IP addresses**: Independent address space
+- **Isolated sockets**: Processes can't see sockets from other namespaces
+- **Independent firewall rules**: Separate iptables/nftables rulesets
+
+### 2. Other Relevant Namespaces
+- **PID namespace**: Process ID isolation
+- **Mount namespace**: Filesystem isolation
+- **UTS namespace**: Hostname and domain isolation
+- **IPC namespace**: Inter-process communication isolation
+
+## Network Namespace Management
+
+### Creating Namespaces
+```bash
+# Create a new network namespace
+ip netns add mynet
+
+# List existing namespaces
+ip netns list
+
+# Delete a namespace
+ip netns del mynet
+```
+
+### Namespace Operations
+```bash
+# Execute command in namespace
+ip netns exec mynet ip addr show
+ip netns exec mynet bash
+
+# Move interface to namespace
+ip link set veth0 netns mynet
+```
+
+### Persistent Namespaces
+```bash
+# Make namespace persistent
+mkdir /var/run/netns
+mount --bind /var/run/netns /var/run/netns
+```
+
+## Virtual Network Devices
+
+### Veth (Virtual Ethernet) Pairs
+```bash
+# Create veth pair
+ip link add veth0 type veth peer name veth1
+
+# Move one end to namespace
+ip link set veth1 netns mynet
+
+# Configure interfaces
+ip addr add 192.168.1.1/24 dev veth0
+ip netns exec mynet ip addr add 192.168.1.2/24 dev veth1
+```
+
+### Bridge Connections
+```bash
+# Create bridge
+ip link add br0 type bridge
+
+# Connect namespaces to bridge
+ip link set veth0 master br0
+ip netns exec mynet ip link set veth1 master br1
+```
+
+## Container Networking
+
+### Docker Networking
+```bash
+# Docker creates network namespaces automatically
+docker run --net=none alpine ip addr
+docker run --net=host alpine ip addr
+
+# Create custom network
+docker network create mynetwork
+docker run --net=mynetwork alpine
+```
+
+### Kubernetes Networking
+- **Pod networking**: Each pod gets its own network namespace
+- **CNI (Container Network Interface)**: Plugin architecture
+- **Overlay networks**: VXLAN, Geneve for multi-node communication
+
+## Use Cases
+
+### 1. Containerization
+- **Application isolation**: Separate network environments
+- **Port conflicts**: Run multiple services with same ports
+- **Testing**: Isolated test environments
+
+### 2. Development Environments
+- **Sandboxing**: Safe testing environments
+- **Multi-tenant hosting**: Isolate customer applications
+- **Microservices**: Service network isolation
+
+### 3. Network Simulation
+- **Complex topologies**: Simulate network architectures
+- **Testing**: Network configuration testing
+- **Learning**: Educational environments
+
+## Advanced Features
+
+### Namespace Communication
+```bash
+# Inter-namespace communication
+# Using veth pairs
+ip link add veth-a type veth peer name veth-b
+ip link set veth-b netns ns2
+
+# Using bridges
+ip link add bridge0 type bridge
+ip link set veth-a master bridge0
+ip netns exec ns2 ip link set veth-b master bridge0
+```
+
+### Routing Between Namespaces
+```bash
+# Enable routing in host namespace
+echo 1 > /proc/sys/net/ipv4/ip_forward
+
+# Set up NAT rules
+iptables -t nat -A POSTROUTING -s 192.168.100.0/24 -o eth0 -j MASQUERADE
+```
+
+## Monitoring and Debugging
+
+### Namespace Inspection
+```bash
+# View namespace process list
+ip netns pids mynet
+ls -la /var/run/netns/
+
+# Network statistics per namespace
+ip netns exec mynet ip -s link show
+ip netns exec mynet ss -tuln
+```
+
+### Common Issues
+- **Interface visibility**: Interfaces visible only in their namespace
+- **Routing conflicts**: Multiple default routes
+- **DNS resolution**: Resolv.conf per namespace
+- **Firewall rules**: iptables per namespace
+
+---
+
+*Network namespaces are essential for modern containerization and network virtualization.*
