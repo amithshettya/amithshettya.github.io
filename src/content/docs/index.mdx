@@ -1,14 +1,44 @@
 ---
 title: Welcome
-description: Welcome to my personal website.
+description: About me.
 ---
 
-Hi, I'm Amith Shetty! I'm passionate about physics, renewable energy, technology and software development.
+I'm a Software Engineer who genuinely enjoys the puzzle of how data moves through a network. I recently wrapped up my Master's at Carnegie Mellon , where I spent most of my time obsessing over software development and the intricate architecture of distributed systems.
 
-This is my personal space where I share my thoughts, experiences, and projects. Feel free to explore the [blog](/blog/) to read my latest posts or learn more about my work and interests.
+Right now, I'm at Cloudflare , building the kind of infrastructure that keeps the internet stable and secure. I spend most of my days in Go and Rust , solving the hidden scaling problems that happen behind the scenes of DDoS protection and WAN. For me, the best part is taking a messy, complex system and making it simple and efficient without anyone ever noticing the effort involved.
 
-
+When I'm not diving into the Linux kernel or debugging distributed services, I'm usually deep in a different kind of logic. I've got a massive soft spot for good math and physics abstraction, and I also enjoy following geopolitics and economic events. If I'm not doing any of those, I'm likely overthinking my next move in chess—or, more realistically, just binge-watching anime.
 
 ---
 
-*Built with ❤️ using Astro*
+## Career Timeline
+
+### Software Engineer
+**Cloudflare** | Jan 2025–Present | Champaign, IL
+*DDoS protection and WAN*
+
+- Decreased support ticket volume by 27% by architecting a telemetry pipeline in Rust to stream logs from the IPsec key negotiation service, empowering customers to self-diagnose and resolve configuration or hardware mismatches.
+- Optimized IPsec tunnel throughput by 14x (reaching 5.5 Gbps) by developing an eBPF program at the XDP Linux probe to decrypt packets and distribute traffic across multiple CPU cores, resolving ECMP hashing imbalances where all encapsulated packets were restricted to a single CPU.
+- Eliminated manual configuration errors and reduced onboarding time by implementing an address synchronization feature in Golang that automatically retrieves BGP prefixes from the address management service via RESTful API, utilizing both notifications and periodic polling.
+- Improved team development experience by parallelizing integration tests for a distributed DDoS configuration service, leveraging Postgres templating and mock injection to cut execution time by 70% (from 10 min to 3 min).
+
+### Senior Software Engineer
+**AppLogic Networks** | 2021–Jul 2023 | Bangalore, KA
+*Developer tools*
+
+- Spearheaded technical specification for 5 features and mentored 3 junior engineers.
+- Achieved a 166% increase in 5G control plane throughput, reaching 200k messages per second, by rearchitecting the simulation tool for horizontal scaling and implementing a master-slave architecture to partition user message loads across multiple machines.
+- Engineered an internet traffic modeling library in python that increased hardware capacity planning accuracy from 92% to 98% by transforming customer deployment KPIs into realistic simulation profiles for open-source traffic simulators.
+
+### Software Engineer
+**AppLogic Networks** | Aug 2020–2021 | Bangalore, KA
+*Developer tools*
+
+- Enabled a $5M deal with a major ISP by implementing 3GPP specification-based 5G extensions for a 4G traffic simulation tool in C++, facilitating essential 4G-to-5G handoff testing.
+- Expanded performance testing to cloud environments by Dockerizing internal tools, eliminating dependency on on-premise lab hardware.
+
+### Software Developer (Contract)
+**AppLogic Networks** | Jan 2020–Aug 2020 | Bangalore, KA
+*Developer tools*
+
+- Streamlined transition to a new simulation tool mode by developing a custom API adapter, reducing migration effort to a single configuration change for all existing test suites.
