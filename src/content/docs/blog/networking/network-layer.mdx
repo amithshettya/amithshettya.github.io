@@ -1,0 +1,105 @@
+---
+title: Network Layer (L3)
+description: Understanding the Network Layer protocols and routing in Linux
+publishDate: 2026-01-30
+---
+
+# Network Layer (L3)
+
+The Network Layer is responsible for packet forwarding and routing across different networks, providing logical addressing and path determination.
+
+## Key Protocols
+
+### 1. IP (Internet Protocol)
+- **IPv4**: 32-bit addressing scheme
+- **IPv6**: 128-bit addressing with larger address space
+- **Fragmentation**: Packet segmentation and reassembly
+- **TTL**: Time-to-live for loop prevention
+
+### 2. ICMP (Internet Control Message Protocol)
+- **Error reporting**: Network error notifications
+- **Diagnostics**: Ping and traceroute utilities
+- **Destination unreachable**: Host/network unreachable messages
+- **Time exceeded**: TTL expiration notifications
+
+### 3. IGMP (Internet Group Management Protocol)
+- **Multicast management**: Group membership management
+- **Group joining/leaving**: Dynamic multicast groups
+
+## IP Addressing
+
+### IPv4 Structure
+- **Network portion**: Identifies network
+- **Host portion**: Identifies host on network
+- **Subnet masks**: Network/host separation
+- **CIDR**: Classless Inter-Domain Routing
+
+### IPv6 Features
+- **Larger address space**: 128-bit vs 32-bit
+- **Simplified header**: Faster processing
+- **Autoconfiguration**: Stateless address autoconfiguration
+- **Built-in security**: IPsec integration
+
+## Linux Routing Implementation
+
+### Routing Table Management
+```bash
+# View routing table
+ip route show
+
+# Add route
+ip route add 192.168.1.0/24 via 10.0.0.1
+
+# Delete route
+ip route del 192.168.1.0/24
+```
+
+### Route Types
+- **Unicast**: Point-to-point delivery
+- **Multicast**: One-to-many delivery
+- **Broadcast**: One-to-all delivery in local network
+- **Anycast**: Nearest destination delivery
+
+### Policy Routing
+- **Multiple tables**: Different routing policies
+- **Source-based routing**: Route based on source address
+- **Mark-based routing**: Route based on packet marks
+
+## Forwarding and NAT
+
+### IP Forwarding
+```bash
+# Enable IP forwarding
+echo 1 > /proc/sys/net/ipv4/ip_forward
+
+# Permanent setting in /etc/sysctl.conf
+net.ipv4.ip_forward = 1
+```
+
+### NAT (Network Address Translation)
+- **SNAT**: Source NAT
+- **DNAT**: Destination NAT
+- **MASQUERADE**: Dynamic NAT for dynamic IPs
+
+## Advanced Features
+
+### Multipath Routing
+- **ECMP**: Equal Cost Multi-Path
+- **Load balancing**: Distribute traffic across multiple paths
+- **Failover**: Automatic path failover
+
+### QoS (Quality of Service)
+- **Traffic classification**: Packet marking
+- **Priority queuing**: Priority-based packet scheduling
+- **Bandwidth limiting**: Rate-based traffic shaping
+
+## Network Namespace Routing
+
+### Namespace Isolation
+- **Separate routing tables**: Each namespace has its own routing
+- **Virtual interfaces**: veth pairs for inter-namespace communication
+- **Network policies**: Isolated network configurations
+
+---
+
+*Understanding the Network Layer is crucial for network design, troubleshooting, and security.*

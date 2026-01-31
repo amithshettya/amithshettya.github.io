@@ -1,0 +1,88 @@
+---
+title: Transport Layer (L4)
+description: Understanding the Transport Layer protocols and their implementation in Linux
+publishDate: 2026-01-30
+---
+
+# Transport Layer (L4)
+
+The Transport Layer is responsible for end-to-end communication between processes on different hosts, providing reliable or unreliable data delivery services.
+
+## Key Protocols
+
+### 1. TCP (Transmission Control Protocol)
+- **Connection-oriented**: Establishes reliable connections
+- **Reliable delivery**: Guarantees data arrives intact and in order
+- **Flow control**: Prevents sender from overwhelming receiver
+- **Congestion control**: Adapts to network conditions
+- **Multiplexing**: Handles multiple connections via ports
+
+### 2. UDP (User Datagram Protocol)
+- **Connectionless**: No connection establishment
+- **Unreliable**: No guarantees of delivery or order
+- **Lightweight**: Minimal overhead
+- **Fast**: Suitable for real-time applications
+
+### 3. SCTP (Stream Control Transmission Protocol)
+- **Multi-streaming**: Multiple independent streams
+- **Multi-homing**: Multiple IP addresses per association
+- **Reliable**: Similar reliability guarantees to TCP
+
+## TCP Implementation in Linux
+
+### Connection States
+- **LISTEN**: Waiting for connection requests
+- **SYN_SENT**: Connection initiation sent
+- **SYN_RECEIVED**: Connection request received
+- **ESTABLISHED**: Connection is active
+- **FIN_WAIT/CLOSE_WAIT**: Connection termination
+
+### Congestion Control Algorithms
+Linux supports multiple congestion control algorithms:
+- **Cubic**: Default in modern kernels
+- **Reno**: Classic algorithm
+- **BBR**: Bandwidth-based algorithm
+- **Vegas**: Delay-based algorithm
+
+### TCP Parameters
+Important sysctl parameters:
+- `tcp_congestion_control`: Algorithm selection
+- `tcp_window_scaling`: Window scaling support
+- `tcp_sack`: Selective acknowledgment
+- `tcp_timestamps`: TCP timestamps
+
+## UDP Implementation
+
+### Key Features
+- **Simple header**: 8-byte header minimal overhead
+- **Checksum**: Optional error detection
+- **Port multiplexing**: Applications bind to specific ports
+
+### Use Cases
+- **DNS**: Domain name resolution
+- **VoIP**: Real-time voice communication
+- **Streaming**: Video/audio streaming
+- **Gaming**: Real-time multiplayer games
+
+## Transport Layer Security
+
+### TLS/SSL Integration
+- **OpenSSL**: Cryptographic library
+- **Kernel TLS**: Hardware acceleration support
+- **Offloading**: Hardware crypto acceleration
+
+## Performance Tuning
+
+### Buffer Management
+- **Receive buffers**: Socket receive queue size
+- **Send buffers**: Socket send queue size
+- **System limits**: Global buffer limits
+
+### Optimization Techniques
+- **TCP_NODELAY**: Disable Nagle's algorithm
+- **TCP_CORK**: Packet batching
+- **SO_REUSEADDR**: Address reuse
+
+---
+
+*The Transport Layer is critical for application-level networking performance and reliability.*

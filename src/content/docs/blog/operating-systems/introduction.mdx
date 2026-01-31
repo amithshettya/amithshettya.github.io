@@ -1,0 +1,181 @@
+---
+title: Introduction to Operating Systems
+description: Understanding the fundamentals of operating systems and their core concepts
+publishDate: 2026-01-30
+---
+
+# Introduction to Operating Systems
+
+Operating systems are the fundamental software that manages computer hardware and provides services for computer programs. Understanding operating systems is crucial for system programming, performance optimization, and system administration.
+
+## What is an Operating System?
+
+An operating system (OS) is system software that manages computer hardware, software resources, and provides common services for computer programs. It acts as an intermediary between users and computer hardware.
+
+## Core Components
+
+### 1. Kernel
+- **Process management**: Creating, scheduling, and terminating processes
+- **Memory management**: Virtual memory, paging, and allocation
+- **Device drivers**: Hardware abstraction and communication
+- **System calls**: Interface between user programs and kernel
+
+### 2. System Libraries
+- **Standard libraries**: libc, system call wrappers
+- **API layer**: Application programming interfaces
+- **Utility functions**: Common programming utilities
+
+### 3. System Utilities
+- **File management**: ls, cp, mv commands
+- **Process management**: ps, kill, top commands
+- **System monitoring**: iostat, vmstat, netstat
+
+## Process Management
+
+### Process States
+- **New**: Process being created
+- **Running**: Instructions being executed
+- **Waiting**: Waiting for an event
+- **Ready**: Waiting to be assigned to a processor
+- **Terminated**: Process has finished execution
+
+### Scheduling Algorithms
+- **FCFS (First Come, First Served)**: Simple queue-based scheduling
+- **SJF (Shortest Job First)**: Optimal average waiting time
+- **Round Robin**: Time-slice based scheduling
+- **Priority Scheduling**: Priority-based execution order
+
+### Linux Process Management
+```bash
+# View processes
+ps aux
+top
+htop
+
+# Process control
+kill -9 PID
+nice -n 10 command
+renice -n 5 PID
+```
+
+## Memory Management
+
+### Virtual Memory
+- **Paging**: Memory division into fixed-size pages
+- **Segmentation**: Memory division into logical segments
+- **Page tables**: Mapping virtual to physical memory
+- **TLB (Translation Lookaside Buffer)**: Fast address translation
+
+### Memory Allocation
+- **Static allocation**: Fixed-size allocation
+- **Dynamic allocation**: Runtime memory allocation
+- **Memory fragmentation**: Internal and external fragmentation
+- **Garbage collection**: Automatic memory reclamation
+
+### Linux Memory Management
+```bash
+# Memory information
+free -h
+cat /proc/meminfo
+vmstat
+
+# Memory usage by process
+ps aux --sort=-%mem
+pmap PID
+```
+
+## File Systems
+
+### File System Architecture
+- **Virtual File System (VFS)**: Abstract file system layer
+- **File system types**: ext4, XFS, Btrfs, NTFS
+- **Inode management**: File metadata and structure
+- **Journaling**: Data integrity and recovery
+
+### File Operations
+```bash
+# File system operations
+mount, umount
+fsck, e2fsck
+df -h
+du -sh
+
+# File permissions
+chmod 755 file
+chown user:group file
+```
+
+## Device Management
+
+### Device Types
+- **Character devices**: Sequential access (keyboard, serial)
+- **Block devices**: Random access (disk drives)
+- **Network devices**: Network interfaces
+- **Virtual devices**: Software-defined devices
+
+### Device Drivers
+- **Kernel modules**: Loadable device drivers
+- **Device files**: /dev directory structure
+- **Device tree**: Hardware description framework
+
+## System Calls
+
+### Common System Calls
+- **File operations**: open(), read(), write(), close()
+- **Process operations**: fork(), exec(), wait(), exit()
+- **Memory operations**: mmap(), brk(), sbrk()
+- **Communication**: pipe(), socket(), bind(), connect()
+
+### System Call Interface
+```c
+#include <unistd.h>
+#include <sys/syscall.h>
+
+// Direct system call
+long result = syscall(SYS_write, fd, buffer, count);
+
+// Library wrapper
+ssize_t bytes_written = write(fd, buffer, count);
+```
+
+## Inter-Process Communication
+
+### IPC Mechanisms
+- **Pipes**: Unidirectional communication
+- **Message queues**: Structured message exchange
+- **Shared memory**: Fast memory sharing
+- **Semaphores**: Synchronization primitives
+- **Sockets**: Network-based communication
+
+## Security and Permissions
+
+### Linux Security Model
+- **Users and groups**: User identification
+- **File permissions**: Read, write, execute permissions
+- **SetUID/SetGID**: Privileged execution
+- **Capabilities**: Fine-grained permissions
+- **SELinux/AppArmor**: Mandatory access control
+
+## Performance Monitoring
+
+### System Monitoring Tools
+```bash
+# CPU usage
+top, htop
+mpstat
+sar
+
+# Memory usage
+free
+vmstat
+sar -r
+
+# I/O statistics
+iostat
+iotop
+sar -d
+```
+
+---
+
+*Operating systems form the foundation of modern computing and are essential for understanding system-level programming.*

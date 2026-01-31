@@ -1,0 +1,16 @@
+
+export default new Map([
+["src/content/docs/blog/databases/fundamentals.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fblog%2Fdatabases%2Ffundamentals.mdx&astroContentModuleFlag=true")],
+["src/content/docs/blog/networking/linux-namespaces.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fblog%2Fnetworking%2Flinux-namespaces.mdx&astroContentModuleFlag=true")],
+["src/content/docs/blog/networking/link-layer.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fblog%2Fnetworking%2Flink-layer.mdx&astroContentModuleFlag=true")],
+["src/content/docs/about.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fabout.mdx&astroContentModuleFlag=true")],
+["src/content/docs/blog/welcome.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fblog%2Fwelcome.mdx&astroContentModuleFlag=true")],
+["src/content/docs/blog/networking/linux-networking-stack.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fblog%2Fnetworking%2Flinux-networking-stack.mdx&astroContentModuleFlag=true")],
+["src/content/docs/index.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Findex.mdx&astroContentModuleFlag=true")],
+["src/content/docs/blog/networking/network-layer.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fblog%2Fnetworking%2Fnetwork-layer.mdx&astroContentModuleFlag=true")],
+["src/content/docs/blog/networking/packet-nic-to-process.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fblog%2Fnetworking%2Fpacket-nic-to-process.mdx&astroContentModuleFlag=true")],
+["src/content/docs/blog/networking/sockets.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fblog%2Fnetworking%2Fsockets.mdx&astroContentModuleFlag=true")],
+["src/content/docs/blog/operating-systems/introduction.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fblog%2Foperating-systems%2Fintroduction.mdx&astroContentModuleFlag=true")],
+["src/content/docs/blog/llm/introduction.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fblog%2Fllm%2Fintroduction.mdx&astroContentModuleFlag=true")],
+["src/content/docs/blog/networking/transport-layer.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fblog%2Fnetworking%2Ftransport-layer.mdx&astroContentModuleFlag=true")]]);
+		

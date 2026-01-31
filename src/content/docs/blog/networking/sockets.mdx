@@ -1,0 +1,70 @@
+---
+title: Sockets
+description: Understanding Linux sockets and their role in network communication
+publishDate: 2026-01-30
+---
+
+# Sockets
+
+Sockets are the fundamental building blocks of network programming in Linux, providing the interface between applications and the network stack.
+
+## What are Sockets?
+
+A socket is an endpoint for sending or receiving data across a computer network. They provide a standardized way for processes to communicate with each other, whether on the same machine or across different machines.
+
+## Socket Types
+
+### 1. Stream Sockets (SOCK_STREAM)
+- Provides reliable, connection-oriented communication
+- Used by TCP protocols
+- Guarantees order and reliability of data delivery
+
+### 2. Datagram Sockets (SOCK_DGRAM)
+- Provides connectionless, unreliable communication
+- Used by UDP protocols
+- No guarantee of order or delivery
+
+### 3. Raw Sockets (SOCK_RAW)
+- Provides direct access to lower-level protocols
+- Used for custom protocol implementations
+- Requires elevated privileges
+
+## Socket API Basics
+
+### Creating a Socket
+```c
+int socket(int domain, int type, int protocol);
+```
+
+- **domain**: AF_INET, AF_INET6, AF_UNIX
+- **type**: SOCK_STREAM, SOCK_DGRAM, SOCK_RAW
+- **protocol**: Typically 0 for default
+
+### Common Operations
+- `bind()`: Associate socket with address
+- `listen()`: Mark socket as passive
+- `accept()`: Accept incoming connections
+- `connect()`: Initiate connection
+- `send()`/`recv()`: Send/receive data
+
+## Socket Buffers
+
+Every socket has associated buffers:
+- **Receive Buffer**: Holds incoming data
+- **Send Buffer**: Holds outgoing data
+- Buffer sizes affect performance and memory usage
+
+## Socket Options
+
+Various socket options control behavior:
+- TCP_NODELAY: Disable Nagle's algorithm
+- SO_REUSEADDR: Reuse local addresses
+- SO_SNDBUF/SO_RCVBUF: Buffer sizes
+
+## Berkeley Sockets vs POSIX
+
+Linux implements both Berkeley and POSIX socket standards, with some variations and extensions specific to Linux.
+
+---
+
+*Understanding sockets is essential for network programming and system networking.*

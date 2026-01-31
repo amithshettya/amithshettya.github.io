@@ -1,0 +1,218 @@
+---
+title: Database Fundamentals
+description: Introduction to database systems, types, and core concepts
+publishDate: 2026-01-30
+---
+
+Databases are organized collections of structured information, or data, typically stored electronically in a computer system. Understanding database fundamentals is crucial for application development, data management, and system architecture.
+
+## Database Types
+
+### 1. Relational Databases (SQL)
+- **Structured data**: Fixed schema with defined relationships
+- **ACID properties**: Atomicity, Consistency, Isolation, Durability
+- **Examples**: PostgreSQL, MySQL, Oracle, SQL Server
+- **Use cases**: Financial systems, enterprise applications
+
+### 2. NoSQL Databases
+- **Flexible schema**: Dynamic or schema-less data models
+- **Horizontal scaling**: Distributed architecture
+- **Types**: Document, Key-value, Column-family, Graph
+- **Examples**: MongoDB, Redis, Cassandra, Neo4j
+
+### 3. NewSQL Databases
+- **Modern SQL**: Combines SQL benefits with NoSQL scalability
+- **Distributed SQL**: Global consistency with horizontal scaling
+- **Examples**: CockroachDB, TiDB, Google Spanner
+
+## Core Database Concepts
+
+### Data Models
+
+#### Relational Model
+- **Tables**: Rows and columns structure
+- **Primary keys**: Unique record identification
+- **Foreign keys**: Referential integrity
+- **Normalization**: Reducing data redundancy
+
+#### Document Model
+- **JSON/BSON documents**: Flexible nested structures
+- **Collections**: Grouped documents
+- **Schema-on-read**: Runtime schema validation
+- **Embedded vs referenced**: Data relationship patterns
+
+### Database Architecture
+
+#### Client-Server Model
+- **Database server**: Data storage and processing
+- **Client applications**: User interface and business logic
+- **Network communication**: Protocol-based interaction
+- **Connection pooling**: Efficient connection management
+
+#### Multi-tier Architecture
+- **Presentation tier**: User interface
+- **Application tier**: Business logic
+- **Data tier**: Database storage
+- **Separation of concerns**: Modular design approach
+
+## SQL Database Deep Dive
+
+### PostgreSQL Features
+```sql
+-- Creating tables
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Querying data
+SELECT u.username, COUNT(o.id) as order_count
+FROM users u
+LEFT JOIN orders o ON u.id = o.user_id
+WHERE u.created_at >= '2026-01-01'
+GROUP BY u.id, u.username
+HAVING COUNT(o.id) > 5;
+
+-- Indexing
+CREATE INDEX idx_users_email ON users(email);
+CREATE INDEX idx_orders_user_date ON orders(user_id, created_at);
+```
+
+### Advanced SQL Concepts
+- **Transactions**: Atomic operations
+- **Views**: Virtual tables
+- **Stored procedures**: Server-side programming
+- **Triggers**: Automatic event response
+- **Materialized views**: Cached query results
+
+## NoSQL Database Deep Dive
+
+### MongoDB Document Structure
+```javascript
+// User document with embedded data
+{
+  "_id": ObjectId("507f1f77bcf86cd799439011"),
+  "username": "john_doe",
+  "email": "john@example.com",
+  "profile": {
+    "firstName": "John",
+    "lastName": "Doe",
+    "age": 30,
+    "interests": ["programming", "databases", "technology"]
+  },
+  "orders": [
+    {
+      "orderId": "ORD001",
+      "amount": 99.99,
+      "date": ISODate("2026-01-15T10:30:00Z")
+    }
+  ],
+  "createdAt": ISODate("2026-01-01T00:00:00Z")
+}
+
+// Query examples
+db.users.findOne({username: "john_doe"});
+db.users.find({"profile.age": {$gte: 25}});
+db.users.find({interests: "programming"});
+```
+
+### Redis Data Structures
+```bash
+# String operations
+SET user:1000 "John Doe"
+GET user:1000
+INCR counter:page_views
+
+# Hash operations
+HSET user:1000 name "John Doe" email "john@example.com"
+HGET user:1000 name
+HGETALL user:1000
+
+# List operations
+LPUSH queue:tasks "task1"
+RPOP queue:tasks
+LRANGE queue:tasks 0 -1
+
+# Set operations
+SADD tags:article:100 "database" "nosql" "mongodb"
+SMEMBERS tags:article:100
+
+# Sorted sets
+ZADD leaderboard 1000 "player1" 1500 "player2" 800 "player3"
+ZRANGE leaderboard 0 -1 WITHSCORES
+```
+
+## Database Performance
+
+### Indexing Strategies
+- **B-tree indexes**: Range queries and sorting
+- **Hash indexes**: Equality queries
+- **Composite indexes**: Multi-column queries
+- **Partial indexes**: Conditional indexing
+- **Full-text search**: Text content search
+
+### Query Optimization
+```sql
+-- PostgreSQL query plan
+EXPLAIN ANALYZE SELECT * FROM users WHERE email = 'john@example.com';
+
+-- MongoDB query analysis
+db.users.find({email: "john@example.com"}).explain("executionStats");
+```
+
+### Connection Management
+- **Connection pooling**: Reuse database connections
+- **Load balancing**: Distribute read/write operations
+- **Read replicas**: Scale read operations
+- **Sharding**: Distribute data across servers
+
+## Database Security
+
+### Authentication and Authorization
+- **User management**: Role-based access control
+- **Encryption**: Data at rest and in transit
+- **Auditing**: Access logging and monitoring
+- **Network security**: Firewalls and VPNs
+
+### Data Protection
+- **Backups**: Regular data backup strategies
+- **Point-in-time recovery**: Restore to specific time
+- **Replication**: Data redundancy and failover
+- **Compliance**: GDPR, HIPAA, SOX requirements
+
+## Database Monitoring
+
+### Performance Metrics
+```sql
+-- PostgreSQL performance queries
+SELECT datname, numbackends, xact_commit, xact_rollback 
+FROM pg_stat_database;
+
+-- Connection monitoring
+SELECT state, count(*) FROM pg_stat_activity 
+GROUP BY state;
+
+-- Index usage
+SELECT indexrelname, idx_tup_read, idx_tup_fetch 
+FROM pg_stat_user_indexes;
+```
+
+### Monitoring Tools
+- **pgAdmin**: PostgreSQL administration
+- **MongoDB Compass**: MongoDB GUI
+- **Redis Insight**: Redis monitoring
+- **Prometheus + Grafana**: Custom monitoring dashboards
+
+## Database Migration and Schema Evolution
+
+### Migration Strategies
+- **Blue-green deployment**: Zero-downtime migration
+- **Canary releases**: Gradual rollout
+- **Rollback plans**: Emergency reversal procedures
+- **Data validation**: Migration verification
+
+---
+
+*Understanding database fundamentals is essential for designing scalable, reliable applications that effectively manage data.*

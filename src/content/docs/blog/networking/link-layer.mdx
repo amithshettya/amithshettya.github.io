@@ -1,0 +1,131 @@
+---
+title: Link Layer (L2)
+description: Understanding the Link Layer protocols and Ethernet networking in Linux
+publishDate: 2026-01-30
+---
+
+# Link Layer (L2)
+
+The Link Layer (Data Link Layer) is responsible for transferring data frames between directly connected network devices, providing reliable transmission over physical media.
+
+## Key Technologies
+
+### 1. Ethernet
+- **MAC addresses**: Hardware identification
+- **Ethernet frames**: Data packaging for transmission
+- **CSMA/CD**: Carrier Sense Multiple Access with Collision Detection
+- **Auto-negotiation**: Speed and duplex configuration
+
+### 2. ARP (Address Resolution Protocol)
+- **IP to MAC resolution**: Map IP addresses to MAC addresses
+- **ARP cache**: Temporary address mappings
+- **Gratuitous ARP**: Duplicate address detection
+- **Proxy ARP**: ARP on behalf of other hosts
+
+### 3. VLAN (Virtual LAN)
+- **IEEE 802.1Q**: VLAN tagging standard
+- **Broadcast isolation**: Separate broadcast domains
+- **Network segmentation**: Logical network separation
+- **Tagged frames**: VLAN identifier in Ethernet header
+
+## Linux Ethernet Implementation
+
+### Network Interface Management
+```bash
+# List network interfaces
+ip link show
+
+# Bring interface up/down
+ip link set eth0 up
+ip link set eth0 down
+
+# Configure MAC address
+ip link set eth0 address 00:11:22:33:44:55
+```
+
+### Interface Types
+- **Physical interfaces**: Actual hardware NICs
+- **Virtual interfaces**: Software-defined interfaces
+- **Bond interfaces**: Link aggregation
+- **Bridge interfaces**: Layer 2 switching
+
+## Ethernet Frames
+
+### Frame Structure
+1. **Preamble + SFD**: Frame synchronization
+2. **Destination MAC**: 6-byte destination address
+3. **Source MAC**: 6-byte source address
+4. **EtherType**: Protocol identifier (2 bytes)
+5. **Payload**: Data (46-1500 bytes)
+6. **FCS**: Frame Check Sequence (4 bytes)
+
+### MTU Considerations
+- **Standard MTU**: 1500 bytes
+- **Jumbo frames**: 9000 bytes for high-performance networks
+- **Fragmentation**: Handling oversized packets
+
+## Advanced Ethernet Features
+
+### Link Aggregation (Bonding)
+```bash
+# Create bond interface
+ip link add bond0 type bond mode 802.3ad
+ip link set eth0 master bond0
+ip link set eth1 master bond0
+```
+
+### Bonding Modes
+- **802.3ad**: LACP (Link Aggregation Control Protocol)
+- **balance-rr**: Round-robin load balancing
+- **active-backup**: Failover mode
+- **balance-xor**: XOR load balancing
+
+### Offloading Features
+- **TSO (TCP Segmentation Offload)**: Kernel-to-hardware segmentation
+- **LRO (Large Receive Offload)**: Hardware-to-kernel packet coalescing
+- **GSO (Generic Segmentation Offload)**: Generic offload framework
+- **GRO (Generic Receive Offload)**: Generic receive offload
+
+## Bridge Implementation
+
+### Linux Bridge Configuration
+```bash
+# Create bridge
+ip link add br0 type bridge
+ip link set eth0 master br0
+ip link set br0 up
+
+# Bridge management
+brctl show br0
+brctl addbr br0
+brctl addif br0 eth0
+```
+
+### Bridge Features
+- **STP (Spanning Tree Protocol)**: Loop prevention
+- **FDB (Forwarding Database)**: MAC address learning
+- **Bridge filtering**: ebtables integration
+- **VLAN awareness**: VLAN bridge support
+
+## Performance Monitoring
+
+### Interface Statistics
+```bash
+# View interface statistics
+ip -s link show eth0
+ethtool -S eth0
+
+# Error monitoring
+ethtool -i eth0
+ethtool -c eth0
+```
+
+### Key Metrics
+- **RX/TX packets**: Packet counts
+- **RX/TX bytes**: Byte counts
+- **Errors/drops**: Packet loss metrics
+- **Collisions**: Collision counts
+
+---
+
+*The Link Layer provides the foundation for all higher-level network communications.*

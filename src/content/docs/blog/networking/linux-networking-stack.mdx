@@ -1,0 +1,159 @@
+---
+title: Linux Networking Stack
+description: Deep dive into the Linux kernel networking architecture and implementation
+publishDate: 2026-01-30
+---
+
+# Linux Networking Stack
+
+The Linux networking stack is a complex, layered architecture that handles all network operations in the kernel, from low-level packet reception to high-level socket interfaces.
+
+## Architecture Overview
+
+The Linux networking stack consists of several key components:
+
+1. **Network Device Drivers**: Interface with hardware
+2. **Network Protocol Stack**: Protocol implementation (TCP/IP, etc.)
+3. **Socket Interface**: User space communication
+4. **Network Subsystem**: Core networking framework
+
+## Core Components
+
+### 1. Net Devices (struct net_device)
+- **Device representation**: Network interface abstraction
+- **Operations**: Device-specific operations (ndo_* functions)
+- **Statistics**: Interface counters and metrics
+- **Configuration**: MTU, MAC address, promiscuity
+
+### 2. Socket Buffer (sk_buff)
+- **Packet container**: Universal packet structure
+- **Layer headers**: Space for all protocol headers
+- **Fragmentation**: Support for packet fragmentation
+- **Metadata**: Packet metadata and control information
+
+### 3. Protocol Handlers
+- **Packet_type**: Protocol registration mechanism
+- **Protocol families**: PF_INET, PF_INET6, PF_PACKET
+- **Packet processing**: Protocol-specific packet handling
+
+## Packet Processing Flow
+
+### Reception Path
+1. **Hardware interrupt**: NIC signals packet arrival
+2. **Driver processing**: DMA transfer to kernel memory
+3. **Netif_receive_skb()**: Pass packet to network stack
+4. **Protocol processing**: IP, TCP/UDP processing
+5. **Socket delivery**: Deliver to appropriate socket
+
+### Transmission Path
+1. **Socket write**: Application writes to socket
+2. **Protocol processing**: Add protocol headers
+3. **Routing**: Determine output interface
+4. **Queueing**: Enqueue for transmission
+5. **Driver processing**: DMA to hardware
+
+## Network Socket Implementation
+
+### Socket Structures
+```c
+struct socket {
+    struct socket *sk;      // Associated sock structure
+    struct file *file;       // File descriptor association
+    const struct proto_ops *ops;  // Protocol operations
+};
+
+struct sock {
+    // Protocol-specific socket data
+    struct sock *sk_next;    // Hash table chaining
+    // ... many more fields
+};
+```
+
+### Protocol Families
+- **AF_INET**: IPv4 protocol family
+- **AF_INET6**: IPv6 protocol family  
+- **AF_PACKET**: Raw packet access
+- **AF_UNIX**: UNIX domain sockets
+
+## Network Scheduling
+
+### Traffic Control (TC)
+- **Queuing disciplines**: qdisc implementation
+- **Classes**: Traffic classification
+- **Filters**: Packet filtering for classification
+- **Policing**: Rate limiting and shaping
+
+### Common qdiscs
+- **pfifo_fast**: Default priority queue
+- **htb**: Hierarchical Token Bucket
+- **fq_codel**: Fair Queueing with Controlled Delay
+- **ingress**: Ingress traffic policing
+
+## Network Statistics and Monitoring
+
+### Interface Statistics
+```bash
+# Detailed interface statistics
+cat /proc/net/dev
+ip -s link show
+
+# Protocol statistics
+cat /proc/net/snmp
+cat /proc/net/netstat
+```
+
+### Socket Statistics
+```bash
+# Active connections
+ss -tuln
+netstat -tuln
+
+# Socket memory usage
+cat /proc/net/sockstat
+```
+
+## Configuration and Tuning
+
+### sysctl Parameters
+```bash
+# Network buffer tuning
+net.core.rmem_max
+net.core.wmem_max
+net.ipv4.tcp_rmem
+net.ipv4.tcp_wmem
+
+# Connection tracking
+net.netfilter.nf_conntrack_max
+```
+
+### Performance Optimization
+- **Interrupt coalescing**: Reduce interrupt overhead
+- **Multi-queue**: Parallel packet processing
+- **RSS (Receive Side Scaling)**: Multi-core packet distribution
+- **Offloading**: Hardware acceleration features
+
+## Network Namespace Integration
+
+### Multiple Network Stacks
+- **Namespace isolation**: Separate network stacks per namespace
+- **Resource sharing**: Shared kernel resources
+- **Inter-namespace communication**: veth pairs, bridges
+- **Policy routing**: Per-namespace routing tables
+
+## Advanced Features
+
+### XDP (eXpress Data Path)
+- **Early packet processing**: Before kernel networking
+- **BPF programs**: Programmable packet processing
+- **High performance**: Bypass most kernel overhead
+- **Offload capabilities**: Hardware XDP support
+
+### eBPF Integration
+- **Programmable networking**: Custom packet processing
+- **Tracing and monitoring**: Network stack observability
+- **Security policies**: Dynamic security rules
+- **Load balancing**: Advanced load distribution
+
+---
+
+*Understanding the Linux networking stack is essential for network programming, performance optimization, and system troubleshooting.*
