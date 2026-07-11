@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,600;0,800;1,400&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Caveat:wght@500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Caveat:wght@500;600&display=swap");
 @import url("https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap");
 @import "tailwindcss";
 
@@ -10,7 +10,6 @@
   --color-ink-soft: #54607A;
   --color-accent: #1B3FA0;
   --color-red: #D6435B;
-  --color-green: #1F8A5F;
   --color-paper-edge: #EEF2FA;
   --color-terminal: #0e1a30;
 
@@ -21,7 +20,6 @@
   --color-dark-ink-soft: #94a3b8;
   --color-dark-accent: #60a5fa;
   --color-dark-red: #fb7185;
-  --color-dark-green: #34d399;
   --color-dark-paper-edge: #1e293b;
 
   --font-serif: "Satoshi", ui-sans-serif, system-ui, sans-serif;
@@ -62,19 +60,6 @@
     background: radial-gradient(120% 80% at 50% -10%, rgba(255,255,255,0.85), rgba(255,255,255,0) 60%);
     pointer-events: none;
     z-index: 0;
-  }
-
-  body::after {
-    content: "";
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: calc(var(--cell, 28px) * 3 + 1px);
-    width: 1.5px;
-    background: var(--color-red);
-    opacity: 0.45;
-    pointer-events: none;
-    z-index: 1;
   }
 
   .dark body,
@@ -646,10 +631,6 @@
     background: rgba(201,214,238,0.25);
   }
 
-  .star-cta .star-icon {
-    color: var(--color-red);
-  }
-
   .ghost-cta {
     display: inline-flex;
     align-items: center;
@@ -659,7 +640,7 @@
     color: var(--color-accent);
     border-bottom: 1.5px solid var(--color-grid-strong);
     text-decoration: none;
-    transition: opacity 0.2s, border-color 0.2s;
+    transition: border-color 0.2s;
   }
 
   .ghost-cta:hover {
@@ -814,18 +795,6 @@
   .dark .dark-mode-toggle .icon-moon,
   :where(.dark, .dark *) .dark-mode-toggle .icon-moon {
     display: none;
-  }
-}
-
-@media (max-width: 720px) {
-  body::after {
-    display: none;
-  }
-}
-
-@media (max-width: 560px) {
-  :root {
-    --cell: 28px;
   }
 }
 

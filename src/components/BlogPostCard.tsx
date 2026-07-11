@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { BLOG_CATEGORIES } from "@/lib/config";
 
 interface BlogPostCardProps {
   title: string;
@@ -22,6 +23,7 @@ export function BlogPostCard({
   readingTime,
 }: BlogPostCardProps) {
   const cardClass = variant === "featured" ? "card-featured group" : "card p-6 group";
+  const categoryName = BLOG_CATEGORIES.find((c) => c.slug === category)?.name ?? category;
 
   return (
     <article className={`${cardClass} relative`}>
@@ -32,7 +34,7 @@ export function BlogPostCard({
         aria-label={title}
       />
       <div className="flex items-center gap-3 mb-3">
-        <span className="eyebrow-hand-sm">{category}</span>
+        <span className="eyebrow-hand-sm">{categoryName}</span>
         <span className="text-grid-strong dark:text-dark-grid-strong">&bull;</span>
         <time className="font-mono text-sm text-ink-soft dark:text-dark-ink-soft">
           {date}

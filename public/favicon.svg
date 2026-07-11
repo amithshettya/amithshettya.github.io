@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <defs>
+    <style>
+      .bg { fill: #0e1a30; }
+      .prompt { fill: #ffffff; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 22px; font-weight: bold; }
+      .cursor { fill: #D6435B; }
+      @media (prefers-color-scheme: dark) {
+        .prompt { fill: #f1f5f9; }
+        .cursor { fill: #fb7185; }
+      }
+    </style>
+  </defs>
+  <rect class="bg" x="0" y="0" width="32" height="32" rx="6"/>
+  <text class="prompt" x="4" y="25">$</text>
+  <rect class="cursor" x="19" y="7" width="7" height="19" rx="1.5"/>
+</svg>
