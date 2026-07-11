@@ -1,13 +1,8 @@
 name = "amithshettya-github-io"
-main = "src/worker.ts"
 compatibility_date = "2025-01-01"
 
 [build]
-command = "deno task build"
+command = "npm install && npm run build"
 
 [assets]
 directory = "./public"
-
-[[rules]]
-type = "Text"
-globs = ["**/*.html"]

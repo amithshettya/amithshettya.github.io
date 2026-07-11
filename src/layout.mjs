@@ -1,15 +1,30 @@
-import { BLOG_CATEGORIES, NAV_LINKS } from "./config.ts";
+import { BLOG_CATEGORIES, NAV_LINKS } from "./config.mjs";
 
-export function renderSidebar(activePage: string): string {
-  const navHtml = NAV_LINKS.map(({ href, label, page }) => {
+const CHEVRON_SVG = `<svg class="sidebar-chevron w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>`;
+
+export function renderSidebar(activePage) {
+  const nonBlogLinks = NAV_LINKS.filter(({ page }) => page !== "blog");
+  const navHtml = nonBlogLinks.map(({ href, label, page }) => {
     const isActive = activePage === page;
     const classes = isActive ? "sidebar-link sidebar-link-active" : "sidebar-link";
     const aria = isActive ? ' aria-current="page"' : "";
     return `        <a href="${href}" class="${classes}"${aria}>${label}</a>`;
   }).join("\n");
 
+  const isBlogPage = activePage === "blog";
+  const blogActiveClass = isBlogPage ? " sidebar-link-active" : "";
+  const blogAria = isBlogPage ? ' aria-current="page"' : "";
+
   const categoryHtml = BLOG_CATEGORIES.map(({ slug, name }) =>
-    `          <a href="/blog/${slug}" class="sidebar-link text-sm">${name}</a>`
+    `          <div class="sidebar-category" data-category-slug="${slug}">
+            <div class="category-header">
+              <a href="/blog/${slug}/" class="category-name">${name}</a>
+              <button class="category-toggle-btn" onclick="event.stopPropagation();toggleCategory('${slug}')" aria-label="Toggle ${name} posts" aria-expanded="false">
+                ${CHEVRON_SVG}
+              </button>
+            </div>
+            <div class="sidebar-subposts"></div>
+          </div>`
   ).join("\n");
 
   return `    <aside class="sidebar-nav w-64 border-r border-grid-strong bg-ground/80 backdrop-blur-sm p-6 flex flex-col relative z-40 shrink-0 dark:bg-dark-ground/80 dark:border-dark-grid-strong">
@@ -19,22 +34,33 @@ export function renderSidebar(activePage: string): string {
       </div>
       <nav class="space-y-1" aria-label="Main navigation">
 ${navHtml}
-        <div class="pl-4 mt-2 space-y-1">
+        <div class="blog-section expanded">
+          <div class="blog-section-header">
+            <a href="/blog" class="sidebar-link flex-1${blogActiveClass}"${blogAria}>Blog</a>
+            <button class="blog-toggle-btn" onclick="toggleBlogSection()" aria-label="Toggle blog categories" aria-expanded="true">
+              ${CHEVRON_SVG}
+            </button>
+          </div>
+          <div class="blog-section-categories">
 ${categoryHtml}
+          </div>
         </div>
       </nav>
     </aside>`;
 }
 
-export function wrapInLayout(
-  content: string,
-  opts: { title: string; activePage: string; description?: string; htmx?: boolean },
-): string {
+export function wrapInLayout(content, opts) {
   const metaDesc =
     opts.description ||
     "Amith Shetty - Software engineer working on networking and distributed systems.";
   const htmxScript = opts.htmx
     ? '\n  <script src="https://unpkg.com/htmx.org@1.9.10"></script>'
+    : "";
+  const blogScript = opts.activePage === "blog"
+    ? '\n  <script src="/js/blog.js"></script>'
+    : "";
+  const homeScript = opts.activePage === "home"
+    ? '\n  <script src="/js/home.js"></script>'
     : "";
   return `<!DOCTYPE html>
 <html lang="en">
@@ -45,7 +71,7 @@ export function wrapInLayout(
   <meta name="description" content="${metaDesc}">
   <link href="/css/output.css" rel="stylesheet">${htmxScript}
   <script src="/js/dark-mode.js"></script>
-  <script src="/js/sidebar.js"></script>
+  <script src="/js/sidebar.js"></script>${blogScript}${homeScript}
 </head>
 <body>
   <a href="#main-content" class="skip-to-content">Skip to content</a>
@@ -75,7 +101,7 @@ export function wrapInLayout(
   <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
   <div class="flex min-h-screen relative">
 ${renderSidebar(opts.activePage)}
-    <main id="main-content" class="flex-1 p-8 min-w-0 max-w-4xl">
+    <main id="main-content" class="flex-1 p-8 min-w-0 max-w-[1080px]">
 ${content}
     </main>
   </div>

@@ -1,0 +1,13 @@
+<article class="prose" data-page-title="The CAP Theorem: Why You Can't Have It All">
+  <div class="flex items-center gap-3 mb-4">
+    <span class="eyebrow-hand-sm">distributed-systems</span>
+    <span class="text-grid-strong dark:text-dark-grid-strong">&bull;</span>
+    <time class="font-mono text-sm text-ink-soft dark:text-dark-ink-soft">2025-01-20</time>
+  </div>
+  <h1>The CAP Theorem: Why You Can't Have It All</h1>
+  <p>The CAP theorem states that a distributed system can only guarantee two of three properties: Consistency, Availability, and Partition tolerance. Since network partitions are inevitable, you&#39;re really choosing between consistency and availability.</p>
+<p>CP systems like ZooKeeper sacrifice availability during partitions — they&#39;d rather return an error than stale data. AP systems like Cassandra keep serving requests but may return outdated writes.</p>
+<p>In practice, most systems offer tunable consistency. Cassandra lets you set consistency levels per query. CockroachDB uses Raft consensus for strong consistency but allows stale reads with follower reads.</p>
+<p>The real takeaway isn&#39;t the theorem itself — it&#39;s that every distributed system makes trade-offs. Understanding those trade-offs lets you pick the right tool for your workload instead of chasing an impossible guarantee.</p>
+
+</article>

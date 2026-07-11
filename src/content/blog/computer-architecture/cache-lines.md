@@ -3,6 +3,7 @@ title: "Cache Lines and the False Sharing Problem"
 date: 2025-02-10
 category: computer-architecture
 description: "Why your multi-threaded code might be slower than you think."
+featured: true
 ---
 
 When two threads write to different variables on the same cache line, performance tanks. This is false sharing — the CPU doesn't know you're using separate variables, so it bounces the cache line between cores.

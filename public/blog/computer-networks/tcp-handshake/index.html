@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How the TCP Handshake Actually Works | Amith Shetty</title>
+  <meta name="description" content="Amith Shetty - Software engineer working on networking and distributed systems.">
+  <link href="/css/output.css" rel="stylesheet">
+  <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+  <script src="/js/dark-mode.js"></script>
+  <script src="/js/sidebar.js"></script>
+  <script src="/js/blog.js"></script>
+</head>
+<body>
+  <a href="#main-content" class="skip-to-content">Skip to content</a>
+  <button class="mobile-menu-btn" onclick="toggleSidebar()" aria-label="Open menu">
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </button>
+  <button onclick="toggleDarkMode()" class="dark-mode-toggle fixed top-4 right-4 z-50 p-2 rounded hover:bg-grid-line/50 dark:hover:bg-dark-grid-line/50 transition-colors text-ink-soft dark:text-dark-ink-soft" aria-label="Toggle dark mode" aria-pressed="false">
+    <svg class="w-5 h-5 icon-moon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+    </svg>
+    <svg class="w-5 h-5 icon-sun" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </button>
+  <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+  <div class="flex min-h-screen relative">
+    <aside class="sidebar-nav w-64 border-r border-grid-strong bg-ground/80 backdrop-blur-sm p-6 flex flex-col relative z-40 shrink-0 dark:bg-dark-ground/80 dark:border-dark-grid-strong">
+      <div class="mb-8">
+        <p class="font-grotesk text-xl font-medium tracking-wide text-ink dark:text-dark-ink">Amith Shetty</p>
+        <p class="text-sm text-ink-soft dark:text-dark-ink-soft font-grotesk">Software Engineer</p>
+      </div>
+      <nav class="space-y-1" aria-label="Main navigation">
+        <a href="/" class="sidebar-link">Home</a>
+        <a href="/about" class="sidebar-link">About</a>
+        <div class="blog-section expanded">
+          <div class="blog-section-header">
+            <a href="/blog" class="sidebar-link flex-1 sidebar-link-active" aria-current="page">Blog</a>
+            <button class="blog-toggle-btn" onclick="toggleBlogSection()" aria-label="Toggle blog categories" aria-expanded="true">
+              <svg class="sidebar-chevron w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+          </div>
+          <div class="blog-section-categories">
+          <div class="sidebar-category" data-category-slug="scalable-system-design">
+            <div class="category-header">
+              <a href="/blog/scalable-system-design/" class="category-name">Scalable System Design</a>
+              <button class="category-toggle-btn" onclick="event.stopPropagation();toggleCategory('scalable-system-design')" aria-label="Toggle Scalable System Design posts" aria-expanded="false">
+                <svg class="sidebar-chevron w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
+            </div>
+            <div class="sidebar-subposts"></div>
+          </div>
+          <div class="sidebar-category" data-category-slug="distributed-systems">
+            <div class="category-header">
+              <a href="/blog/distributed-systems/" class="category-name">Distributed Systems</a>
+              <button class="category-toggle-btn" onclick="event.stopPropagation();toggleCategory('distributed-systems')" aria-label="Toggle Distributed Systems posts" aria-expanded="false">
+                <svg class="sidebar-chevron w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
+            </div>
+            <div class="sidebar-subposts"></div>
+          </div>
+          <div class="sidebar-category" data-category-slug="databases">
+            <div class="category-header">
+              <a href="/blog/databases/" class="category-name">Databases</a>
+              <button class="category-toggle-btn" onclick="event.stopPropagation();toggleCategory('databases')" aria-label="Toggle Databases posts" aria-expanded="false">
+                <svg class="sidebar-chevron w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
+            </div>
+            <div class="sidebar-subposts"></div>
+          </div>
+          <div class="sidebar-category" data-category-slug="computer-networks">
+            <div class="category-header">
+              <a href="/blog/computer-networks/" class="category-name">Computer Networks</a>
+              <button class="category-toggle-btn" onclick="event.stopPropagation();toggleCategory('computer-networks')" aria-label="Toggle Computer Networks posts" aria-expanded="false">
+                <svg class="sidebar-chevron w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
+            </div>
+            <div class="sidebar-subposts"></div>
+          </div>
+          <div class="sidebar-category" data-category-slug="software-architecture">
+            <div class="category-header">
+              <a href="/blog/software-architecture/" class="category-name">Software Architecture</a>
+              <button class="category-toggle-btn" onclick="event.stopPropagation();toggleCategory('software-architecture')" aria-label="Toggle Software Architecture posts" aria-expanded="false">
+                <svg class="sidebar-chevron w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
+            </div>
+            <div class="sidebar-subposts"></div>
+          </div>
+          <div class="sidebar-category" data-category-slug="computer-architecture">
+            <div class="category-header">
+              <a href="/blog/computer-architecture/" class="category-name">Computer Architecture</a>
+              <button class="category-toggle-btn" onclick="event.stopPropagation();toggleCategory('computer-architecture')" aria-label="Toggle Computer Architecture posts" aria-expanded="false">
+                <svg class="sidebar-chevron w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
+            </div>
+            <div class="sidebar-subposts"></div>
+          </div>
+          <div class="sidebar-category" data-category-slug="parallel-programming">
+            <div class="category-header">
+              <a href="/blog/parallel-programming/" class="category-name">Parallel Programming</a>
+              <button class="category-toggle-btn" onclick="event.stopPropagation();toggleCategory('parallel-programming')" aria-label="Toggle Parallel Programming posts" aria-expanded="false">
+                <svg class="sidebar-chevron w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
+            </div>
+            <div class="sidebar-subposts"></div>
+          </div>
+          <div class="sidebar-category" data-category-slug="large-language-models">
+            <div class="category-header">
+              <a href="/blog/large-language-models/" class="category-name">Large Language Models</a>
+              <button class="category-toggle-btn" onclick="event.stopPropagation();toggleCategory('large-language-models')" aria-label="Toggle Large Language Models posts" aria-expanded="false">
+                <svg class="sidebar-chevron w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
+            </div>
+            <div class="sidebar-subposts"></div>
+          </div>
+          </div>
+        </div>
+      </nav>
+    </aside>
+    <main id="main-content" class="flex-1 p-8 min-w-0 max-w-[1080px]">
+<article class="prose" data-page-title="How the TCP Handshake Actually Works">
+  <div class="flex items-center gap-3 mb-4">
+    <span class="eyebrow-hand-sm">computer-networks</span>
+    <span class="text-grid-strong dark:text-dark-grid-strong">&bull;</span>
+    <time class="font-mono text-sm text-ink-soft dark:text-dark-ink-soft">2025-02-01</time>
+  </div>
+  <h1>How the TCP Handshake Actually Works</h1>
+  <p>Every web request starts with a TCP three-way handshake. SYN, SYN-ACK, ACK. But there&#39;s more happening than most people realize.</p>
+<p>When your client sends a SYN, it includes options like MSS (maximum segment size), window scale, and SACK permissions. The server&#39;s SYN-ACK responds with its own options. This negotiation determines how the connection will behave for its entire lifetime.</p>
+<p>The initial sequence numbers aren&#39;t random — modern systems use algorithms like TCP Fast Open to reduce latency. On repeat connections, the client can send data in the SYN packet itself, saving one full round trip.</p>
+<p>For DDoS protection, SYN floods exploit this handshake by sending millions of SYN packets without completing the connection. SYN cookies solve this by encoding connection state in the sequence number itself, eliminating the need to store half-open connections in memory.</p>
+
+</article>
+    </main>
+  </div>
+</body>
+</html>

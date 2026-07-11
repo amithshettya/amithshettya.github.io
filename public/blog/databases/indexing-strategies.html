@@ -1,0 +1,13 @@
+<article class="prose" data-page-title="Indexing Strategies That Actually Matter">
+  <div class="flex items-center gap-3 mb-4">
+    <span class="eyebrow-hand-sm">databases</span>
+    <span class="text-grid-strong dark:text-dark-grid-strong">&bull;</span>
+    <time class="font-mono text-sm text-ink-soft dark:text-dark-ink-soft">2025-01-25</time>
+  </div>
+  <h1>Indexing Strategies That Actually Matter</h1>
+  <p>Most database performance problems aren&#39;t about hardware — they&#39;re about missing or wrong indexes. A well-placed index can turn a 30-second query into milliseconds.</p>
+<p>B-tree indexes are the default for a reason: they handle equality and range queries efficiently. But don&#39;t index everything. Each index slows down writes because the database must maintain it. A table with 15 indexes will have sluggish INSERT performance.</p>
+<p>Composite indexes follow the leftmost prefix rule. An index on (country, city, zip) can serve queries filtering by country, or country+city, but not city alone. Design your indexes to match your query patterns.</p>
+<p>Partial indexes are underrated. If you only query active users, index WHERE status = &#39;active&#39; instead of the entire table. You get smaller indexes, faster scans, and less storage overhead.</p>
+
+</article>

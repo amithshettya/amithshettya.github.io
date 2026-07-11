@@ -1,0 +1,17 @@
+{
+  "name": "amithshettya-github-io",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:blog": "node build.mjs",
+    "build:css": "npx @tailwindcss/cli -i ./src/css/input.css -o ./public/css/output.css --minify",
+    "build": "npm run build:blog && npm run build:css",
+    "deploy": "npm run build && npx wrangler deploy",
+    "dev": "npx wrangler dev"
+  },
+  "dependencies": {
+    "marked": "^15",
+    "tailwindcss": "^4",
+    "@tailwindcss/cli": "^4"
+  }
+}

@@ -1,0 +1,13 @@
+<article class="prose" data-page-title="Cache Lines and the False Sharing Problem">
+  <div class="flex items-center gap-3 mb-4">
+    <span class="eyebrow-hand-sm">computer-architecture</span>
+    <span class="text-grid-strong dark:text-dark-grid-strong">&bull;</span>
+    <time class="font-mono text-sm text-ink-soft dark:text-dark-ink-soft">2025-02-10</time>
+  </div>
+  <h1>Cache Lines and the False Sharing Problem</h1>
+  <p>When two threads write to different variables on the same cache line, performance tanks. This is false sharing — the CPU doesn&#39;t know you&#39;re using separate variables, so it bounces the cache line between cores.</p>
+<p>A cache line is typically 64 bytes. Two <code>int64_t</code> variables sitting next to each other in a struct share a line. Thread 1 writing to variable A invalidates the cache line for Thread 2 writing to variable B, even though they&#39;re logically independent.</p>
+<p>The fix: pad your structures to ensure hot variables live on separate cache lines. In C++, <code>alignas(64)</code> works. In Rust, <code>#[repr(align(64))]</code> does the same.</p>
+<p>You can verify with perf tools — high L1 cache invalidation rates are a telltale sign. Profile before optimizing, but when you see mysterious slowdowns in concurrent code, false sharing is often the culprit.</p>
+
+</article>

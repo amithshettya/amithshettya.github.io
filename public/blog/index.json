@@ -1,0 +1,102 @@
+{
+  "posts": [
+    {
+      "title": "How Attention Mechanisms Power Modern LLMs",
+      "date": "2025-02-20",
+      "category": "large-language-models",
+      "slug": "attention-mechanisms",
+      "description": "A practical explanation of the transformer architecture's key innovation.",
+      "featured": false
+    },
+    {
+      "title": "Amdahl's Law and Why Parallel Speedup Isn't Linear",
+      "date": "2025-02-15",
+      "category": "parallel-programming",
+      "slug": "amdahls-law",
+      "description": "Understanding the theoretical limits of parallel computation.",
+      "featured": false
+    },
+    {
+      "title": "Cache Lines and the False Sharing Problem",
+      "date": "2025-02-10",
+      "category": "computer-architecture",
+      "slug": "cache-lines",
+      "description": "Why your multi-threaded code might be slower than you think.",
+      "featured": true
+    },
+    {
+      "title": "Microservices vs Monoliths: It's Not What You Think",
+      "date": "2025-02-05",
+      "category": "software-architecture",
+      "slug": "microservices-monoliths",
+      "description": "Why the monolith vs microservices debate misses the real point.",
+      "featured": false
+    },
+    {
+      "title": "How the TCP Handshake Actually Works",
+      "date": "2025-02-01",
+      "category": "computer-networks",
+      "slug": "tcp-handshake",
+      "description": "A practical walkthrough of TCP's three-way handshake and what happens under the hood.",
+      "featured": true
+    },
+    {
+      "title": "Indexing Strategies That Actually Matter",
+      "date": "2025-01-25",
+      "category": "databases",
+      "slug": "indexing-strategies",
+      "description": "Practical database indexing patterns for high-performance queries.",
+      "featured": false
+    },
+    {
+      "title": "The CAP Theorem: Why You Can't Have It All",
+      "date": "2025-01-20",
+      "category": "distributed-systems",
+      "slug": "cap-theorem",
+      "description": "Understanding the fundamental trade-offs in distributed system design.",
+      "featured": false
+    },
+    {
+      "title": "Designing a URL Shortener at Scale",
+      "date": "2025-01-15",
+      "category": "scalable-system-design",
+      "slug": "url-shortener",
+      "description": "A deep dive into designing a URL shortener that handles millions of requests per second.",
+      "featured": false
+    }
+  ],
+  "categories": [
+    {
+      "slug": "scalable-system-design",
+      "name": "Scalable System Design"
+    },
+    {
+      "slug": "distributed-systems",
+      "name": "Distributed Systems"
+    },
+    {
+      "slug": "databases",
+      "name": "Databases"
+    },
+    {
+      "slug": "computer-networks",
+      "name": "Computer Networks"
+    },
+    {
+      "slug": "software-architecture",
+      "name": "Software Architecture"
+    },
+    {
+      "slug": "computer-architecture",
+      "name": "Computer Architecture"
+    },
+    {
+      "slug": "parallel-programming",
+      "name": "Parallel Programming"
+    },
+    {
+      "slug": "large-language-models",
+      "name": "Large Language Models"
+    }
+  ]
+}

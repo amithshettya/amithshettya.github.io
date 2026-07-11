@@ -3,6 +3,7 @@ title: "How the TCP Handshake Actually Works"
 date: 2025-02-01
 category: computer-networks
 description: "A practical walkthrough of TCP's three-way handshake and what happens under the hood."
+featured: true
 ---
 
 Every web request starts with a TCP three-way handshake. SYN, SYN-ACK, ACK. But there's more happening than most people realize.

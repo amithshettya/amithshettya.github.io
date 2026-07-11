@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home | Amith Shetty</title>
+  <meta name="description" content="Amith Shetty - Software engineer working on networking and distributed systems.">
+  <link href="/css/output.css" rel="stylesheet">
+  <script src="/js/dark-mode.js"></script>
+  <script src="/js/sidebar.js"></script>
+  <script src="/js/home.js"></script>
+</head>
+<body>
+  <a href="#main-content" class="skip-to-content">Skip to content</a>
+  <button class="mobile-menu-btn" onclick="toggleSidebar()" aria-label="Open menu">
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </button>
+  <button onclick="toggleDarkMode()" class="dark-mode-toggle fixed top-4 right-4 z-50 p-2 rounded hover:bg-grid-line/50 dark:hover:bg-dark-grid-line/50 transition-colors text-ink-soft dark:text-dark-ink-soft" aria-label="Toggle dark mode" aria-pressed="false">
+    <svg class="w-5 h-5 icon-moon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+    </svg>
+    <svg class="w-5 h-5 icon-sun" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </button>
+  <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+  <div class="flex min-h-screen relative">
+    <aside class="sidebar-nav w-64 border-r border-grid-strong bg-ground/80 backdrop-blur-sm p-6 flex flex-col relative z-40 shrink-0 dark:bg-dark-ground/80 dark:border-dark-grid-strong">
+      <div class="mb-8">
+        <p class="font-grotesk text-xl font-medium tracking-wide text-ink dark:text-dark-ink">Amith Shetty</p>
+        <p class="text-sm text-ink-soft dark:text-dark-ink-soft font-grotesk">Software Engineer</p>
+      </div>
+      <nav class="space-y-1" aria-label="Main navigation">
+        <a href="/" class="sidebar-link sidebar-link-active" aria-current="page">Home</a>
+        <a href="/about" class="sidebar-link">About</a>
+        <div class="blog-section expanded">
+          <div class="blog-section-header">
+            <a href="/blog" class="sidebar-link flex-1">Blog</a>
+            <button class="blog-toggle-btn" onclick="toggleBlogSection()" aria-label="Toggle blog categories" aria-expanded="true">
+              <svg class="sidebar-chevron w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+          </div>
+          <div class="blog-section-categories">
+          <div class="sidebar-category" data-category-slug="scalable-system-design">
+            <div class="category-header">
+              <a href="/blog/scalable-system-design/" class="category-name">Scalable System Design</a>
+              <button class="category-toggle-btn" onclick="event.stopPropagation();toggleCategory('scalable-system-design')" aria-label="Toggle Scalable System Design posts" aria-expanded="false">
+                <svg class="sidebar-chevron w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
+            </div>
+            <div class="sidebar-subposts"></div>
+          </div>
+          <div class="sidebar-category" data-category-slug="distributed-systems">
+            <div class="category-header">
+              <a href="/blog/distributed-systems/" class="category-name">Distributed Systems</a>
+              <button class="category-toggle-btn" onclick="event.stopPropagation();toggleCategory('distributed-systems')" aria-label="Toggle Distributed Systems posts" aria-expanded="false">
+                <svg class="sidebar-chevron w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
+            </div>
+            <div class="sidebar-subposts"></div>
+          </div>
+          <div class="sidebar-category" data-category-slug="databases">
+            <div class="category-header">
+              <a href="/blog/databases/" class="category-name">Databases</a>
+              <button class="category-toggle-btn" onclick="event.stopPropagation();toggleCategory('databases')" aria-label="Toggle Databases posts" aria-expanded="false">
+                <svg class="sidebar-chevron w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
+            </div>
+            <div class="sidebar-subposts"></div>
+          </div>
+          <div class="sidebar-category" data-category-slug="computer-networks">
+            <div class="category-header">
+              <a href="/blog/computer-networks/" class="category-name">Computer Networks</a>
+              <button class="category-toggle-btn" onclick="event.stopPropagation();toggleCategory('computer-networks')" aria-label="Toggle Computer Networks posts" aria-expanded="false">
+                <svg class="sidebar-chevron w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
+            </div>
+            <div class="sidebar-subposts"></div>
+          </div>
+          <div class="sidebar-category" data-category-slug="software-architecture">
+            <div class="category-header">
+              <a href="/blog/software-architecture/" class="category-name">Software Architecture</a>
+              <button class="category-toggle-btn" onclick="event.stopPropagation();toggleCategory('software-architecture')" aria-label="Toggle Software Architecture posts" aria-expanded="false">
+                <svg class="sidebar-chevron w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
+            </div>
+            <div class="sidebar-subposts"></div>
+          </div>
+          <div class="sidebar-category" data-category-slug="computer-architecture">
+            <div class="category-header">
+              <a href="/blog/computer-architecture/" class="category-name">Computer Architecture</a>
+              <button class="category-toggle-btn" onclick="event.stopPropagation();toggleCategory('computer-architecture')" aria-label="Toggle Computer Architecture posts" aria-expanded="false">
+                <svg class="sidebar-chevron w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
+            </div>
+            <div class="sidebar-subposts"></div>
+          </div>
+          <div class="sidebar-category" data-category-slug="parallel-programming">
+            <div class="category-header">
+              <a href="/blog/parallel-programming/" class="category-name">Parallel Programming</a>
+              <button class="category-toggle-btn" onclick="event.stopPropagation();toggleCategory('parallel-programming')" aria-label="Toggle Parallel Programming posts" aria-expanded="false">
+                <svg class="sidebar-chevron w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
+            </div>
+            <div class="sidebar-subposts"></div>
+          </div>
+          <div class="sidebar-category" data-category-slug="large-language-models">
+            <div class="category-header">
+              <a href="/blog/large-language-models/" class="category-name">Large Language Models</a>
+              <button class="category-toggle-btn" onclick="event.stopPropagation();toggleCategory('large-language-models')" aria-label="Toggle Large Language Models posts" aria-expanded="false">
+                <svg class="sidebar-chevron w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
+            </div>
+            <div class="sidebar-subposts"></div>
+          </div>
+          </div>
+        </div>
+      </nav>
+    </aside>
+    <main id="main-content" class="flex-1 p-8 min-w-0 max-w-[1080px]">
+      <!-- Hero Section -->
+      <section class="mb-12">
+        <p class="eyebrow-hand mb-1">hello world</p>
+        <h1 class="hero-heading text-ink dark:text-dark-ink">
+          Hello, I'm <span class="text-accent dark:text-dark-accent">Amith</span>
+        </h1>
+        <p class="lede-text mt-6 text-ink dark:text-dark-ink">
+          A software engineer trying to build a better internet.
+        </p>
+        <div class="flex flex-wrap items-center gap-3 mt-8">
+          <a href="/assets/resume.pdf" download class="star-cta">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            <span>Resume</span>
+          </a>
+          <a href="https://www.linkedin.com/in/amithshettya/" target="_blank" rel="noopener" class="star-cta">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" width="15" height="15" fill="currentColor">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+            <span>LinkedIn</span>
+          </a>
+          <a href="https://github.com/amithshettya" target="_blank" rel="noopener" class="star-cta">
+            <svg class="w-4 h-4" viewBox="0 0 16 16" width="15" height="15" aria-hidden="true">
+              <path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M8 0C3.58.0.0 3.58.0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38.0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95.0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12.0.0.67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15.0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48.0 1.07-.01 1.93-.01 2.2.0.21.15.46.55.38A8.01 8.01.0 0016 8c0-4.42-3.58-8-8-8z"/>
+            </svg>
+            <span>GitHub</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- Featured Posts -->
+      <section class="mt-16">
+        <p class="eyebrow-hand-sm mb-4">featured blogs</p>
+        <div id="featured-posts" class="space-y-4"></div>
+      </section>
+
+    </main>
+  </div>
+</body>
+</html>

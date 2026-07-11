@@ -1,15 +1,4 @@
-export interface Category {
-  slug: string;
-  name: string;
-}
-
-export interface NavLink {
-  href: string;
-  label: string;
-  page: string;
-}
-
-export const BLOG_CATEGORIES: Category[] = [
+export const BLOG_CATEGORIES = [
   { slug: "scalable-system-design", name: "Scalable System Design" },
   { slug: "distributed-systems", name: "Distributed Systems" },
   { slug: "databases", name: "Databases" },
@@ -20,7 +9,7 @@ export const BLOG_CATEGORIES: Category[] = [
   { slug: "large-language-models", name: "Large Language Models" },
 ];
 
-export const NAV_LINKS: NavLink[] = [
+export const NAV_LINKS = [
   { href: "/", label: "Home", page: "home" },
   { href: "/about", label: "About", page: "about" },
   { href: "/blog", label: "Blog", page: "blog" },
