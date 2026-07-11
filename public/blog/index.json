@@ -5,7 +5,7 @@
       "date": "2025-02-20",
       "category": "large-language-models",
       "slug": "attention-mechanisms",
-      "description": "A practical explanation of the transformer architecture's key innovation.",
+      "description": "A grounded walk through the transformer's key innovation and what it actually means in practice.",
       "featured": false
     },
     {
@@ -13,7 +13,7 @@
       "date": "2025-02-15",
       "category": "parallel-programming",
       "slug": "amdahls-law",
-      "description": "Understanding the theoretical limits of parallel computation.",
+      "description": "What the classic law of parallel computation actually teaches you about where to spend optimization effort.",
       "featured": false
     },
     {
@@ -21,7 +21,7 @@
       "date": "2025-02-10",
       "category": "computer-architecture",
       "slug": "cache-lines",
-      "description": "Why your multi-threaded code might be slower than you think.",
+      "description": "A persistent performance bug that shows up when you least expect it, and how to catch it.",
       "featured": true
     },
     {
@@ -29,7 +29,7 @@
       "date": "2025-02-05",
       "category": "software-architecture",
       "slug": "microservices-monoliths",
-      "description": "Why the monolith vs microservices debate misses the real point.",
+      "description": "Architecture debates miss the real variable: coupling, not deployment topology.",
       "featured": false
     },
     {
@@ -37,7 +37,7 @@
       "date": "2025-02-01",
       "category": "computer-networks",
       "slug": "tcp-handshake",
-      "description": "A practical walkthrough of TCP's three-way handshake and what happens under the hood.",
+      "description": "The three-way handshake is just the beginning. The interesting part is what happens in those packets.",
       "featured": true
     },
     {
@@ -45,7 +45,7 @@
       "date": "2025-01-25",
       "category": "databases",
       "slug": "indexing-strategies",
-      "description": "Practical database indexing patterns for high-performance queries.",
+      "description": "A practical look at how indexes work, when they help, and how to avoid the common mistakes.",
       "featured": false
     },
     {
@@ -53,7 +53,7 @@
       "date": "2025-01-20",
       "category": "distributed-systems",
       "slug": "cap-theorem",
-      "description": "Understanding the fundamental trade-offs in distributed system design.",
+      "description": "What the CAP theorem actually says, what it doesn't, and how to use it without overapplying it.",
       "featured": false
     },
     {
@@ -61,7 +61,7 @@
       "date": "2025-01-15",
       "category": "scalable-system-design",
       "slug": "url-shortener",
-      "description": "A deep dive into designing a URL shortener that handles millions of requests per second.",
+      "description": "The problems that emerge when a seemingly simple service needs to handle millions of requests per second.",
       "featured": false
     }
   ],
