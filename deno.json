@@ -1,0 +1,18 @@
+{
+  "nodeModulesDir": "auto",
+  "tasks": {
+    "dev": "deno run --allow-net --allow-read server.ts",
+    "build": "deno run -A build-blog.ts && deno run -A npm:@tailwindcss/cli -i ./src/css/input.css -o ./public/css/output.css --minify",
+    "build:static": "deno run -A build-static.ts",
+    "deploy": "deno task build && deno task build:static",
+    "css:watch": "deno run -A npm:@tailwindcss/cli -i ./src/css/input.css -o ./public/css/output.css --watch",
+    "css:build": "deno run -A npm:@tailwindcss/cli -i ./src/css/input.css -o ./public/css/output.css --minify",
+    "blog:build": "deno run -A build-blog.ts",
+    "blog:watch": "deno run -A --watch build-blog.ts"
+  },
+  "imports": {
+    "tailwindcss": "npm:tailwindcss@^4",
+    "@tailwindcss/cli": "npm:@tailwindcss/cli@^4",
+    "marked": "npm:marked@^15"
+  }
+}
